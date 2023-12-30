@@ -57,8 +57,13 @@ public class BankManagementSystem {
                 System.out.print("First credit balance : ");
                 double firstBalance = scanner.nextDouble();
 
+
+
                 Customer newCustomer = new Customer(name, dob, aadhaar, mobile, email, address, firstBalance);
                 customers.add(newCustomer);
+
+                newCustomer.setTransactionStatements(
+                        new TransactionStatement("A New Account Created", firstBalance, newCustomer.getBalance()));
 
                 // successfully created account
                 System.out.println("-----------------------------------");
@@ -104,13 +109,13 @@ public class BankManagementSystem {
                         if (choice2 == 1) {
                             System.out.println("-----------------------------------");
                             System.out.print("Enter Amount: ");
-                            int amount = scanner.nextInt();
+                            double amount = scanner.nextDouble();
                             if (amount > targetCustomer.getBalance()) {
                                 System.out.println("Insufficient balance in your account");
                             } else {
                                 targetCustomer.setBalance(targetCustomer.getBalance() - amount);
                                 targetCustomer.setTransactionStatements(
-                                        new TransactionStatement("Debited", amount, targetCustomer.getBalance()));
+                                        new TransactionStatement("Debited from your account", amount, targetCustomer.getBalance()));
                                 System.out.println(
                                         "You Debited " + amount + " from account " + targetCustomer.getAccountNumber());
                                 System.out.println("Available Balance: " + targetCustomer.getBalance());
@@ -124,10 +129,10 @@ public class BankManagementSystem {
                         } else if (choice2 == 4) {
                             System.out.println("-----------------------------------");
                             System.out.print("Enter Amount: ");
-                            int amount = scanner.nextInt();
+                            double amount = scanner.nextDouble();
                             targetCustomer.setBalance(targetCustomer.getBalance() + amount);
                             targetCustomer.setTransactionStatements(
-                                    new TransactionStatement("Credited", amount, targetCustomer.getBalance()));
+                                    new TransactionStatement("Credited to your account", amount, targetCustomer.getBalance()));
                             System.out.println(
                                     "You Credited " + amount + " To account " + targetCustomer.getAccountNumber());
                             System.out.println("Available Balance: " + targetCustomer.getBalance());
@@ -140,14 +145,11 @@ public class BankManagementSystem {
                         } else if (choice2 == 6) {
                             System.out.println("-----------------------------------");
                             // Transaction statements code
-                            if (targetCustomer.getTransactionStatements().isEmpty()) {
-                                System.out.println("Not done any translation.");
-                            } else {
-                                // System.out.println("format");
-                                for (TransactionStatement tr : targetCustomer.getTransactionStatements()) {
-                                    System.out.println(tr.toString());
-                                }
+                            System.out.println("Transactions: ");
+                            for (TransactionStatement tr : targetCustomer.getTransactionStatements()) {
+                                System.out.println(tr.toString());
                             }
+
                         } else if (choice2 == 7) {
                             break;
                         } else {
