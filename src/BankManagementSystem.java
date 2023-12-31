@@ -2,6 +2,50 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankManagementSystem {
+
+    // method to handle exception
+    public int readIntegerInput(String prompt, Scanner scanner){
+        int input = 0;
+        while(true){
+            try {
+                System.out.print(prompt);
+                input = scanner.nextInt();
+                break;
+            } catch (Exception ex){
+                System.out.println("Invalid input, try again!");
+                scanner.nextLine();
+            }
+        }
+        return input;
+    }
+    public double readDoubleInput(String prompt, Scanner scanner){
+        double input = 0;
+        while(true){
+            try {
+                System.out.print(prompt);
+                input = scanner.nextDouble();
+                break;
+            } catch (Exception ex){
+                System.out.println("Invalid input, try again!");
+                scanner.nextLine();
+            }
+        }
+        return input;
+    }
+    public long readLongInput(String prompt, Scanner scanner){
+        long input = 0;
+        while(true){
+            try {
+                System.out.print(prompt);
+                input = scanner.nextLong();
+                break;
+            } catch (Exception ex){
+                System.out.println("Invalid input, try again!");
+                scanner.nextLine();
+            }
+        }
+        return input;
+    }
     private ArrayList<Customer> customers;
 
     public BankManagementSystem() {
@@ -26,8 +70,8 @@ public class BankManagementSystem {
             System.out.println("2. Login to account");
             System.out.println("3. Forgot pin");
             System.out.println("4. Exit");
-            System.out.print("Choose your Option: ");
-            int choice = scanner.nextInt();
+
+            int choice = readIntegerInput("Choose your option: ", scanner);
 
             if (choice == 1) {
                 System.out.println("-----------------------------------");
@@ -37,14 +81,9 @@ public class BankManagementSystem {
                 String name = scanner.next();
                 scanner.nextLine(); // new line
 
-                System.out.print("DOB (DDMMYYYY) : ");
-                long dob = scanner.nextLong();
-
-                System.out.print("Aadhaar Number : ");
-                long aadhaar = scanner.nextLong();
-
-                System.out.print("Mobile : ");
-                long mobile = scanner.nextLong();
+                long dob = readLongInput("DOB (DDMMYYYY) : ", scanner);
+                long aadhaar = readLongInput("Aadhaar Number : ", scanner);
+                long mobile = readLongInput("Mobile Number : ", scanner);
 
                 System.out.print("Email : ");
                 String email = scanner.next();
@@ -54,9 +93,7 @@ public class BankManagementSystem {
                 String address = scanner.next();
                 scanner.nextLine(); // new line
 
-                System.out.print("First credit balance : ");
-                double firstBalance = scanner.nextDouble();
-
+                double firstBalance = readDoubleInput("First credit balance : ", scanner);
 
 
                 Customer newCustomer = new Customer(name, dob, aadhaar, mobile, email, address, firstBalance);
@@ -74,11 +111,9 @@ public class BankManagementSystem {
 
             } else if (choice == 2) {
                 System.out.println("-----------------------------------");
-                System.out.print("Enter account number: ");
-                int accountNumber = scanner.nextInt();
+                int accountNumber = readIntegerInput("Enter account number: ",scanner);
 
-                System.out.print("Enter Pin number: ");
-                int pinNumber = scanner.nextInt();
+                int pinNumber = readIntegerInput("Enter Pin number: ",scanner);
 
                 // search this account detail in database
                 Customer targetCustomer = null;
@@ -103,13 +138,11 @@ public class BankManagementSystem {
                         System.out.println("5. Change Pin");
                         System.out.println("6. Transition statements");
                         System.out.println("7. Logout");
-                        System.out.print("Choose option: ");
-                        int choice2 = scanner.nextInt();
+                        int choice2 = readIntegerInput("Choose option: ",scanner);
 
                         if (choice2 == 1) {
                             System.out.println("-----------------------------------");
-                            System.out.print("Enter Amount: ");
-                            double amount = scanner.nextDouble();
+                            double amount = readDoubleInput("Enter Amount: ", scanner);
                             if (amount > targetCustomer.getBalance()) {
                                 System.out.println("Insufficient balance in your account");
                             } else {
@@ -128,8 +161,7 @@ public class BankManagementSystem {
                             targetCustomer.customerDetails();
                         } else if (choice2 == 4) {
                             System.out.println("-----------------------------------");
-                            System.out.print("Enter Amount: ");
-                            double amount = scanner.nextDouble();
+                            double amount = readDoubleInput("Enter Amount: ", scanner);
                             targetCustomer.setBalance(targetCustomer.getBalance() + amount);
                             targetCustomer.setTransactionStatements(
                                     new TransactionStatement("Credited to your account", amount, targetCustomer.getBalance()));
@@ -138,8 +170,7 @@ public class BankManagementSystem {
                             System.out.println("Available Balance: " + targetCustomer.getBalance());
                         } else if (choice2 == 5) {
                             System.out.println("-----------------------------------");
-                            System.out.print("Enter new Pin: ");
-                            int newPin = scanner.nextInt();
+                            int newPin = readIntegerInput("Enter new Pin: ", scanner);
                             targetCustomer.setPinNumber(newPin);
 
                         } else if (choice2 == 6) {
@@ -172,14 +203,12 @@ public class BankManagementSystem {
                     System.out.println("3. Aadhaar number");
                     System.out.println("4. Mobile number");
                     System.out.println("5. Exit");
-                    System.out.print("Choose any option: ");
-                    int choice3 = scanner.nextInt();
+                    int choice3 = readIntegerInput("Choose an option: ", scanner);
 
                     if (choice3 == 1) {
                         System.out.println("-----------------------------------");
-                        System.out.print("Enter your Account number: ");
+                        long inputAccountNumber = readLongInput("Enter your Account number: ", scanner);
                         Customer targetCustomer = null;
-                        long inputAccountNumber = scanner.nextLong();
                         for (Customer customer : customers) {
                             if (customer.getAccountNumber() == inputAccountNumber) {
                                 targetCustomer = customer;
@@ -187,23 +216,20 @@ public class BankManagementSystem {
                             }
                         }
                         if (targetCustomer != null) {
-                            System.out.println("Account fond: " + targetCustomer.getCustomerName());
-                            System.out.print("Set new Pin: ");
-                            int newPin = scanner.nextInt();
+                            System.out.println("Account found: " + targetCustomer.getCustomerName());
+                            int newPin = readIntegerInput("Set new Pin: ", scanner);
                             targetCustomer.setPinNumber(newPin);
                             System.out.println("Pin changed successfully.\nYour Account number is "
                                     + targetCustomer.getAccountNumber() + "\nYour new pin is "
                                     + targetCustomer.getPinNumber());
                             break;
                         } else {
+                            System.out.println("-----------------------------------");
                             System.out.println("Account not found. try another way.");
                         }
-                    }
-
-                    else if (choice3 == 2) {
+                    } else if (choice3 == 2) {
                         System.out.println("-----------------------------------");
-                        System.out.print("Enter your DOB (DDMMYYYY): ");
-                        long dob = scanner.nextLong();
+                        long dob = readLongInput("Enter your DOB (DDMMYYYY): ", scanner);
                         Customer targetCustomer = null;
                         for (Customer customer : customers) {
                             if (customer.getDateOfBirth() == dob) {
@@ -212,9 +238,8 @@ public class BankManagementSystem {
                             }
                         }
                         if (targetCustomer != null) {
-                            System.out.println("Account fond: " + targetCustomer.getCustomerName());
-                            System.out.print("Set new Pin: ");
-                            int newPin = scanner.nextInt();
+                            System.out.println("Account found: " + targetCustomer.getCustomerName());
+                            int newPin = readIntegerInput("Set new Pin: ", scanner);
                             targetCustomer.setPinNumber(newPin);
                             System.out.println("Pin changed successfully.\nYour Account number is "
                                     + targetCustomer.getAccountNumber() + "\nYour new pin is "
@@ -222,12 +247,12 @@ public class BankManagementSystem {
                             //
                             break;
                         } else {
+                            System.out.println("-----------------------------------");
                             System.out.println("Account not found. try another way.");
                         }
                     } else if (choice3 == 3) {
                         System.out.println("-----------------------------------");
-                        System.out.print("Enter your Aadhaar number: ");
-                        long aadhaar = scanner.nextLong();
+                        long aadhaar = readLongInput("Enter your Aadhaar number: ",scanner);
                         Customer targetCustomer = null;
                         for (Customer customer : customers) {
                             if (customer.getAadhaarNumber() == aadhaar) {
@@ -236,9 +261,8 @@ public class BankManagementSystem {
                             }
                         }
                         if (targetCustomer != null) {
-                            System.out.println("Account fond: " + targetCustomer.getCustomerName());
-                            System.out.print("Set new Pin: ");
-                            int newPin = scanner.nextInt();
+                            System.out.println("Account found: " + targetCustomer.getCustomerName());
+                            int newPin = readIntegerInput("Set new Pin: ", scanner);
                             targetCustomer.setPinNumber(newPin);
                             System.out.println("Pin changed successfully.\nYour Account number is "
                                     + targetCustomer.getAccountNumber() + "\nYour new pin is "
@@ -246,12 +270,12 @@ public class BankManagementSystem {
                             //
                             break;
                         } else {
+                            System.out.println("-----------------------------------");
                             System.out.println("Account not found. try another way.");
                         }
                     } else if (choice3 == 4) {
                         System.out.println("-----------------------------------");
-                        System.out.print("Enter registered mobile number: ");
-                        long mobile = scanner.nextLong();
+                        long mobile = readLongInput("Enter registered mobile number: ", scanner);
                         Customer targetCustomer = null;
                         for (Customer customer : customers) {
                             if (customer.getPhoneNumber() == mobile) {
@@ -260,9 +284,8 @@ public class BankManagementSystem {
                             }
                         }
                         if (targetCustomer != null) {
-                            System.out.println("Account fond: " + targetCustomer.getCustomerName());
-                            System.out.print("Set new Pin: ");
-                            int newPin = scanner.nextInt();
+                            System.out.println("Account found: " + targetCustomer.getCustomerName());
+                            int newPin = readIntegerInput("Set new Pin: ", scanner);
                             targetCustomer.setPinNumber(newPin);
                             System.out.println("Pin changed successfully.\nYour Account number is "
                                     + targetCustomer.getAccountNumber() + "\nYour new pin is "
@@ -270,6 +293,7 @@ public class BankManagementSystem {
                             //
                             break;
                         } else {
+                            System.out.println("-----------------------------------");
                             System.out.println("Account not found. try another way.");
                         }
                     } else if (choice3 == 5) {
