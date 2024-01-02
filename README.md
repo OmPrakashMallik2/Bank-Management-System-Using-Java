@@ -58,6 +58,60 @@ This Java-based Bank Management System is designed to facilitate secure and effi
 - `BankManagementSystem.java`: Main class containing the banking functionalities.
 - `Main.java`: Entry point for the application.
 
+## Output Interface
+
+### Creating a New Account
+
+1. **Choose your option:**
+   - Select '1' to create a new account.
+
+2. **Enter your details:**
+   - Provide your name, date of birth, Aadhaar number, mobile number, email, address, and initial balance.
+
+3. **Account Created Successfully:**
+   - A new account will be created with a unique account number and pin.
+
+### Logging In
+
+1. **Choose your option:**
+   - Select '2' to log in to your account.
+
+2. **Enter Account Number and Pin:**
+   - Input your account number and pin for authentication.
+
+3. **Access Account Menu:**
+   - Upon successful login, you'll have options like cash withdrawal, balance check, account details, etc.
+
+### Forgot Pin
+
+1. **Choose your option:**
+   - Select '3' if you forgot your pin.
+
+2. **Reset Options:**
+   - Reset your pin using account number, date of birth, Aadhaar number, or mobile number.
+
+3. **Confirmation:**
+   - Confirm the pin reset and receive new pin details.
+
+### Exiting the System
+
+1. **Choose your option:**
+   - Select '4' to exit the system.
+
+2. **Thank You Message:**
+   - Receive a thank you message and exit the system.
+
+### Transactions and Statements
+
+1. **Choose your option:**
+   - Inside the account menu, select '6' to view transaction statements.
+
+2. **Transaction Details:**
+   - Displayed details include transaction number, amount, statement, available balance, and date.
+
+Feel free to explore various options in the interactive menu to manage your account efficiently.
+
+
 ## Contributing
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
