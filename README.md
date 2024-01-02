@@ -17,15 +17,36 @@ This Java-based Bank Management System is designed to facilitate secure and effi
 
 ## Usage
 1. **Create New Account:**
-    - Enter customer details, including name, date of birth, Aadhaar number, mobile number, email, address, and initial balance.
-    - The system generates a unique account number and a random PIN.
+    - User selects the option to create a new account.
+    - Inputs personal details such as name, date of birth, Aadhaar number, mobile number, email, address, and initial balance.
+    - The system generates a unique account number and a random PIN for the new customer.
+
 2. **Login:**
-    - Enter account number and PIN for secure login.
-    - Access various functionalities such as withdrawal, balance check, credit, PIN change, and transaction statements.
-3. **Forgot PIN:**
-    - Reset PIN through account number, date of birth, Aadhaar number, or mobile number.
-4. **Exit:**
-    - Exit the system.
+    - User chooses the option to login and provides the generated account number and PIN.
+    - The system validates the credentials and allows access to the account.
+
+3. **Perform Transactions:**
+    - User selects transaction options:
+        - **Cash Withdrawal:** Enters the withdrawal amount. The system checks if the balance is sufficient and processes the withdrawal, updating the balance and generating a transaction statement.
+        - **Check Balance:** Displays the current account balance.
+        - **Credit to Account:** Enters the amount to credit. The system updates the balance and generates a transaction statement.
+        - **Change PIN:** Enters a new PIN. The system updates the PIN for the account.
+
+4. **View Account Details:**
+    - User selects the option to view account details.
+    - The system displays the customer's name, account number, PIN, date of birth, Aadhaar number, mobile number, email, address, and available balance.
+
+5. **Transaction Statements:**
+    - User chooses to view transaction statements.
+    - The system displays a list of transaction statements including serial number, amount, transaction type (debit or credit), available balance after the transaction, and the date of the transaction.
+
+6. **Forgot PIN:**
+    - If the user forgets the PIN, they can choose the option to reset it.
+    - Options include resetting through account number, date of birth, Aadhaar number, or mobile number.
+    - After selecting an option, the system prompts the user to enter the necessary details and then allows them to set a new PIN.
+
+7. **Logout:**
+    - User selects the option to logout, ending the current session.
 
 ## How to Run
 1. Clone the repository.
@@ -40,3 +61,4 @@ This Java-based Bank Management System is designed to facilitate secure and effi
 ## Contributing
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
+## License
