@@ -3,49 +3,6 @@ import java.util.Scanner;
 
 public class BankManagementSystem {
 
-    // method to handle exception
-    public int readIntegerInput(String prompt, Scanner scanner){
-        int input = 0;
-        while(true){
-            try {
-                System.out.print(prompt);
-                input = scanner.nextInt();
-                break;
-            } catch (Exception ex){
-                System.out.println("Invalid input, try again!");
-                scanner.nextLine();
-            }
-        }
-        return input;
-    }
-    public double readDoubleInput(String prompt, Scanner scanner){
-        double input = 0;
-        while(true){
-            try {
-                System.out.print(prompt);
-                input = scanner.nextDouble();
-                break;
-            } catch (Exception ex){
-                System.out.println("Invalid input, try again!");
-                scanner.nextLine();
-            }
-        }
-        return input;
-    }
-    public long readLongInput(String prompt, Scanner scanner){
-        long input = 0;
-        while(true){
-            try {
-                System.out.print(prompt);
-                input = scanner.nextLong();
-                break;
-            } catch (Exception ex){
-                System.out.println("Invalid input, try again!");
-                scanner.nextLine();
-            }
-        }
-        return input;
-    }
     private ArrayList<Customer> customers;
 
     public BankManagementSystem() {
@@ -313,5 +270,48 @@ public class BankManagementSystem {
         }
 
         System.out.println("Thank you! visit again.");
+    }
+
+    public int readIntegerInput(String prompt, Scanner scanner){
+        int input = 0;
+        while(true){
+            try {
+                System.out.print(prompt);
+                input = scanner.nextInt();
+                break;
+            } catch (Exception ex){
+                System.out.println("Invalid input, try again!");
+                scanner.nextLine();
+            }
+        }
+        return input;
+    }
+    public double readDoubleInput(String prompt, Scanner scanner){
+        double input = 0;
+        while(true){
+            try {
+                System.out.print(prompt);
+                input = scanner.nextDouble();
+                break;
+            } catch (Exception ex){
+                System.out.println("Invalid input, try again!");
+                scanner.nextLine();
+            }
+        }
+        return input;
+    }
+    public long readLongInput(String prompt, Scanner scanner){
+        long input = 0;
+        while(true){
+            try {
+                System.out.print(prompt);
+                input = scanner.nextLong();
+                break;
+            } catch (Exception ex){
+                System.out.println("Invalid input, try again!");
+                scanner.nextLine();
+            }
+        }
+        return input;
     }
 }
