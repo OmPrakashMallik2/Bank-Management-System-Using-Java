@@ -15,7 +15,7 @@ public class BankManagementSystem {
             Statement statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
         }
         return resultSet;
     }
@@ -28,7 +28,7 @@ public class BankManagementSystem {
             Statement statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
         }
         return resultSet;
     }
@@ -38,12 +38,43 @@ public class BankManagementSystem {
         int resultSet = 0;
         try {
             String query = "INSERT INTO transactions (account_number, pin,email, statement_text, amount, balance, transaction_date) VALUES ("
-                    + account_number + ", " + pin + ", 'email not fount', '" + statement_text + "', " + amount + ", "
+                    + account_number + ", " + pin + ", ' - ', '" + statement_text + "', " + amount + ", "
                     + balance + ", CURRENT_DATE);";
             Statement statement = connection.createStatement();
             resultSet = statement.executeUpdate(query);
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void removeAccount(Scanner scanner, Connection connection){
+        try {
+            System.out.println("-----------------------------------");
+            int accountNumber = readIntegerInput("Enter account number: ", scanner);
+            int pinNumber = readIntegerInput("Enter Pin number: ", scanner);
+
+            // code to search in database
+            String query = "SELECT * FROM customer WHERE  account_number = " + accountNumber +" AND pinNumber = "+pinNumber+ ";";
+            Statement statement = connection.createStatement();
+            ResultSet rs1 = statement.executeQuery(query);
+            if (rs1.next()) {
+
+                System.out.println("-----------------------------------");
+                System.out.println("Hello " + rs1.getString(2));
+
+                // delete from customer
+                String query2 = "DELETE FROM customer WHERE  account_number = " + accountNumber +" AND pinNumber = "+pinNumber+ ";";
+                statement.executeUpdate(query2);
+                // delete all transactions records
+                String query3 = "DELETE FROM transactions WHERE  account_number = " + accountNumber +" AND pin = "+pinNumber+ ";";
+                statement.executeUpdate(query3);
+                System.out.println("your account DELETED SUCCESSFULLY!");
+            } else {
+                System.out.println("-----------------------------------");
+                System.out.println("Account not found. try again!.");
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -200,6 +231,7 @@ public class BankManagementSystem {
                         ResultSet rs3 = getDetails(connection, accountNumber, pinNumber);
                         if (rs3.next()) {
                             System.out.println("-----------------------------------");
+                            System.out.println("CUSTOMER DETAILS");
                             System.out.println("Customer name: " + rs3.getString(2)); // Use getString for varchar
                             System.out.println("Account number: " + rs3.getInt(1));
                             System.out.println("Pin number: " + rs3.getInt(9));
@@ -234,6 +266,7 @@ public class BankManagementSystem {
                         // transaction statements
 
                         System.out.println("-----------------------------------");
+                        System.out.println("TRANSACTION HISTORY : ");
                         ResultSet rs5 = getDetailsTransactions(connection, accountNumber, pinNumber);
                         int count = 1;
                         while (rs5.next()) {
@@ -346,6 +379,7 @@ public class BankManagementSystem {
                 System.out.println("1. Create new account");
                 System.out.println("2. Login to account");
                 System.out.println("3. Forgot pin");
+                System.out.println("4. Delete account");
                 System.out.println("0. Exit");
 
                 int choice = readIntegerInput("Choose your option: ", scanner);
@@ -358,6 +392,9 @@ public class BankManagementSystem {
 
                 else if (choice == 3) {
                     forgotPin(scanner, connection);
+                }
+                else if (choice == 4) {
+                    removeAccount(scanner, connection);
                 } else if (choice == 0) {
                     break;
                 } else {
